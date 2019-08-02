@@ -13,14 +13,8 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
 
-  final LatLng initialCenter;
-  final String apiKey;
 
-  const MyApp({
-    Key key,
-    this.initialCenter,
-    this.apiKey,
-  }) : super(key: key);
+
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -32,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   Completer<GoogleMapController> mapController = Completer();
 
   MapType _currentMapType = MapType.normal;
-   LatLng _lastMapPosition;
+  LatLng _lastMapPosition;
 
   Position _currentPosition;
 
@@ -40,7 +34,7 @@ class _MyAppState extends State<MyApp> {
 
   void _onToggleMapTypePressed() {
     final MapType nextType =
-        MapType.values[(_currentMapType.index + 1) % MapType.values.length];
+    MapType.values[(_currentMapType.index + 1) % MapType.values.length];
 
     setState(() => _currentMapType = nextType);
   }
@@ -64,9 +58,9 @@ class _MyAppState extends State<MyApp> {
     setState(() => _currentPosition = currentPosition);
 
     if (currentPosition != null)
-          LatLng(currentPosition.latitude, currentPosition.longitude);
+      LatLng(currentPosition.latitude, currentPosition.longitude);
   }
-   @override
+  @override
   void initState() {
     super.initState();
     _initCurrentLocation();
@@ -75,27 +69,29 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
+    final LatLng initialCenter = LatLng( _currentPosition.latitude, _currentPosition.longitude);
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('Testing_3 App'),
           backgroundColor: Colors.green[700],
         ),
-         body: Center(
+        body: Center(
           child: Column(
             children: <Widget>[
               Expanded(
-                child: Container(
-                  child: GoogleMap(
-                     onMapCreated: (GoogleMapController controller) {
-                      mapController.complete(controller);
+                  child: Container(
+                    child: GoogleMap(
+                      onMapCreated: (GoogleMapController controller) {
+                        mapController.complete(controller);
                       },
-                    initialCameraPosition: CameraPosition(
-                      target: widget.initialCenter,
-                      zoom: 11.0,
+                      initialCameraPosition: CameraPosition(
+                        target: initialCenter,
+                        zoom: 11.0,
+                      ),
                     ),
-                  ),
-                )
+                  )
               ), // THIS ONE U LESS ONE BACKET
               Container(
                 height: 200,
