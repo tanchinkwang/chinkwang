@@ -12,6 +12,16 @@ void main() => runApp(MyApp());
 
 
 class MyApp extends StatefulWidget {
+
+  final LatLng initialCenter;
+  final String apiKey;
+
+  const MyApp({
+    Key key,
+    this.initialCenter,
+    this.apiKey,
+  }) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -81,7 +91,7 @@ class _MyAppState extends State<MyApp> {
                       mapController.complete(controller);
                       },
                     initialCameraPosition: CameraPosition(
-                      target: ,
+                      target: widget.initialCenter,
                       zoom: 11.0,
                     ),
                   ),
